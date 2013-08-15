@@ -1,5 +1,12 @@
 #!/usr/bin/python
 
+"""
+This script will count unique IP's in an apache log file. 
+It will take input form a file provided on the command line 
+or stdin. At the moment it just counts unique strings in 
+the first field.
+"""
+
 #import sys
 from collections import Counter
 import fileinput
