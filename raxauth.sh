@@ -2,6 +2,7 @@
 #
 ######################################################################################
 # A simple script to authenticate with Rackspace identity and show the service catalog
+# without using pyrax or needing to install and tools
 #  -Duncan Murray
 ######################################################################################
 
