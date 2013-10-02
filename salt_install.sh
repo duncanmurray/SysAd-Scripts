@@ -83,10 +83,15 @@ fi
 # Check if we want to configure a minion or master
 if [[ $MASTER = 1 ]]; then
     echo "Installing Salt Master"
+    # Reminders of what need to be done
     #/usr/bin/curl -L http://bootstrap.saltstack.org | sh -s -- -M -N
+    #pip install git+https://github.com/saltstack/salt-cloud.git#egg=salt_cloud
+    #$INSTALL salt-api
+    #pip install -U halite
 fi
 
 if [[ $MINION = 1 ]]; then
     echo "Installing Salt Minion"
+    # Reminders of what need to be done
     #/usr/bin/curl -L http://bootstrap.saltstack.org | sh
 fi
