@@ -54,18 +54,16 @@ do
   esac
 done
 
-if  [[ $MASTER = 1 ]]; then
-    echo "Installing Salt Master"
-    #/usr/bin/curl -L http://bootstrap.saltstack.org | sh -s -- -M -N
+# Check that we have one install option selected
+if [[ $MASTER -ne 1 ]] && [[ $MINION -ne 1 ]]; then
+    usage
+    exit
+else
+  if [[ $MASTER = 1 ]] && [[ $MINION = 1 ]]; then
+    usage
+    exit
+  fi
 fi
-
-if [[ $MINION = 1 ]]; then
-    echo "Installing Salt Minion"
-    #/usr/bin/curl -L http://bootstrap.saltstack.org | sh
-    
-fi
-
-
 
 # Check what distribution we are using
 OS=`/usr/bin/lsb_release -i | awk -F ":" '{gsub(/\s+/, "");print $2}' | tr '[:upper:]' '[:lower:]'`
@@ -75,12 +73,20 @@ if [ $OS = 'ubuntu' ]; then
     INSTALL='/usr/bin/apt-get'
 elif [ $OS =  'centos' ]; then
     echo "OS is $OS"
-    INSTALL='yum' # put full path 
+    INSTALL='/usr/bin/yum'
 else
     echo "OS is $OS"
     echo 'Unsupported OS'
     exit 1
 fi
 
-# Install salt master
-#/usr/bin/curl -L http://bootstrap.saltstack.org | sudo sh -s -- -M -N
+# Check if we want to configure a minion or master
+if [[ $MASTER = 1 ]]; then
+    echo "Installing Salt Master"
+    #/usr/bin/curl -L http://bootstrap.saltstack.org | sh -s -- -M -N
+fi
+
+if [[ $MINION = 1 ]]; then
+    echo "Installing Salt Minion"
+    #/usr/bin/curl -L http://bootstrap.saltstack.org | sh
+fi
